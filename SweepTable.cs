@@ -16,28 +16,6 @@ public class Arc {
 }
 
 public class SweepTable : BinaryTree<Arc> {
-    private float getIntersection(BinaryTreeNode<Arc> edge_node, float sweep_line) {
-        Vector p1 = edge_node.FindPrevLeaf().Value.Site;
-        Vector p2 = edge_node.FindNextLeaf().Value.Site;
-        float breakpoint;
-
-        if (p1.y == p2.y) {
-            breakpoint = (p1.x + p2.x) / 2;
-        } else if (p1.y == sweep_line) {
-            // If *only* one of the sites is being swept by the sweep line,
-            // then that site forms a vertical line segment straight down.
-            breakpoint = p1.x;
-        } else if (p2.y == sweep_line) {
-            // Same as previous case, only with the other site being swept.
-            breakpoint = p2.x;
-        } else {
-            breakpoint = (p1.y * p2.x - Mathf.Sqrt(p1.y * p2.y * ((p1.y - p2.y) * (p1.y - p2.y) + p2.x * p2.x))) /
-                (p1.y - p2.y);
-        }
-
-        return breakpoint;
-    }
-
     private float findIntersection(BinaryTreeNode<Arc> node, float k) {
         Vector s1 = node.FindPrevLeaf().Value.Site;
         Vector s2 = node.FindNextLeaf().Value.Site;
