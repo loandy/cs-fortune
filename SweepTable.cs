@@ -26,16 +26,16 @@ public class SweepTable : BinaryTree<Arc> {
         float c = 0.0f;
 
         if (Mathf.Approximately(s1.y, s2.y)) {
+            // If both sites are on the same y-coordinate, their arcs intersect exactly halfway.
             breakpoint = (s1.x + s2.x) / 2;
         } else if (s1.y == k) {
-            // If *only* one of the sites is being swept by the sweep line,
-            // then that site forms a vertical line segment straight down.
+            // Sites swept by the sweep line form a vertical line segment straight down, giving
+            // the x-coordinates of the potential breakpoint.
             breakpoint = s1.x;
             a = 1 / (2 * (s2.y - k));
             b = -2.0f * a * s2.x;
             c = (s2.x * s2.x * a) + (1 / (2 * (s2.y + k)));
         } else if (s2.y == k) {
-            // Same as previous case, only with the other site being swept.
             breakpoint = s2.x;
             a = 1 / (2 * (s1.y - k));
             b = -2.0f * a * s1.x;
